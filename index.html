@@ -20,25 +20,44 @@
     <main id="notesContainer" class="notes-grid"></main>
 
     <dialog id="noteDialog">
-        <div class="dialog-content">
-            <div class="dialog-header">
-                <h2 class="dialog-title" id="dialogTitle">Add New Note</h2>
-                <button class="close-btn" onclick="closeNoteDialog()">❌</button>
+        <div class="mainDialog">
+            <div class="dialog-content">
+                <div class="dialog-header">
+                    <h2 class="dialog-title" id="dialogTitle"></h2>
+                    <button class="close-btn" onclick="closeNoteDialog()">x</button>
+                </div>
+                <form id="noteForm">
+                    <div id="noteTitle">
+                        <label class="form-label">Title</label>
+                        <input type="text"placeholder="Enter note title..." id="noteTitleField" class="form-Title" required>
+                    </div>
+                    <div id="note-content">
+                        <label class="form-label">content</label>
+                        <textarea placeholder="Enter content title..." id="noteContent" class="form-TextArea"></textarea>
+                    </div>
+                    <div class="dialog-actions">
+                        <button type="button" class="cancel-btn" onclick="closeNoteDialog()">Cancel</button>
+                        <button type="submit" class="save-btn">Save Note</button>
+                    </div>
+                </form>
             </div>
-            <form id="noteForm">
-                <div id="noteTitle">
-                    <h3 class="form-label">Title</h3>
-                    <input type="text"placeholder="Enter note title..." id="noteTitleField" class="form-Title" required>
+        </div>
+    </dialog>
+
+
+    <dialog id="noteDialog2">
+        <div class="mainDialog">
+            <div class="dialog-content">
+                <div class="dialog-header">
+                    <h2 class="note-title" id="ex-Title"></h2>
+                    <button class="close-btn" onclick="closeNoteDialog2()">x</button>
                 </div>
-                <div id="notecontent">
-                    <h3 class="form-label">content</h3>
-                    <textarea placeholder="Enter content title..." id="noteContent" class="form-TextArea"></textarea>
+                <div id="noteForm">
+                        <p  id="ex-Content"></p>
+                        <button type="button" class="cancel-btn" onclick="closeNoteDialog2()">Close</button>
+                        
                 </div>
-                <div class="dialog-actions">
-                    <button type="button" class="cancel-btn" onclick="closeNoteDialog()">Cancel</button>
-                    <button type="submit" class="save-btn">Save Note</button>
-                </div>
-            </form>
+            </div>
         </div>
     </dialog>
 

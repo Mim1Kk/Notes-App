@@ -1,4 +1,5 @@
 const noteDialog = document.getElementById('noteDialog');
+const noteDialog2 = document.getElementById('noteDialog2');
 const titleInput = document.getElementById('noteTitleField');
 const contentInput = document.getElementById('noteContent');
 const noteForm = document.getElementById('noteForm');
@@ -84,12 +85,26 @@ function renderNotes() {
             <h3 class="note-title">${note.title}</h3>
             <p class="note-content">${note.content}</p>
             <div class="note-card-actions">            
+                <button class="expand-btn" onclick="openExpandedDialog('${note.id}')" title="Expand Note">🔍</button>
                 <button class="edit-btn" onclick="openNoteDialog('${note.id}')" title="Edit Note">✏️</button>
                 <button class="delete-btn" onclick="deleteNote('${note.id}')" title="Delete Note">🗑️</button>
             </div>
         </div>
     `).join('')
 
+}
+
+
+function openExpandedDialog(noteId){
+
+    const noteToShow = notes.find(note => note.id === noteId)
+
+    document.getElementById('ex-Title').textContent = noteToShow.title
+    
+    document.getElementById('ex-Content').textContent = noteToShow.content
+
+
+    noteDialog2.showModal();
 }
 
 
@@ -117,6 +132,10 @@ function openNoteDialog(noteId = null) {
 
 function closeNoteDialog() {
     noteDialog.close()
+}
+
+function closeNoteDialog2() {
+    noteDialog2.close()
 }
 
 document.addEventListener('DOMContentLoaded', function(){
