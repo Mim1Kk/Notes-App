@@ -20,24 +20,24 @@ function saveNote(event){
     const title = titleInput.value.trim();
     const content = contentInput.value.trim();
 
-    if(editingNoteID) {
-        const noteIndex = notes.findIndex(note => note.id === editingNoteID)
+    if(editingNoteID){
+        const noteIndex = notes.findIndex(note => note.id === editingNoteID);
 
-        notes[noteIndex] = {
-            ...notes[noteIndex],
-            title: title,
-            content: content,
+        if (noteIndex !== -1) {
+            notes[noteIndex] = {
+                ...notes[noteIndex],
+                title: title,
+                content: content,
+            };
         }
-
-
-    }
-
+    } 
     else{
         notes.unshift({
             id: generateID(),
             title: title,
             content: content
-        })        
+            
+        });
     }
 
 
@@ -53,19 +53,20 @@ function saveNotes() {
 }
 
 function deleteNote(noteId, event) {
-  const noteCard = event.target.closest('.note-card');
+    const noteCard = event.target.closest('.note-card');
   
-  noteCard.classList.add('delete');
+    noteCard.classList.add('delete');
 
-  setTimeout(() => {
-    notes = notes.filter(note => note.id != noteId);
-    saveNotes();
-    renderNotes();
-  }, 600); 
+    setTimeout(() => {
+        notes = notes.filter(note => note.id !== noteId);
+        saveNotes();
+        renderNotes();
+    }, 400);
 }
 
 
 function generateID(){
+    //find a better way to make an id
     return Date.now().toString()
 }
 
@@ -77,15 +78,15 @@ function loadNotes() {
 
 
 function renderNotes() {
-    if(notes.length === 0){
-        notesContainer.innerHTML = `
-            <div class = "empty-state">
-                <h2Pretty empty in here 🦆</h2>
+    if (notes.length === 0) {
+        noteContainer.innerHTML = `
+            <div class="empty-state">
+                <h2>Pretty empty in here 🦆</h2>
                 <p>Make a new note by clicking on this button</p>
-                <button class= "add-note-btn" onclick="openNoteDialog()">Add a note!</button>
+                <button type="button" class="add-note-btn" onclick="openNoteDialog()">Add a note!</button>
             </div>
-        `
-        return
+        `;
+        return;
     }
 
     notesContainer.innerHTML = notes.map(note => `
@@ -152,18 +153,11 @@ document.addEventListener('DOMContentLoaded', function(){
     
     noteForm.addEventListener('submit',saveNote)    
 
-    //optimize by using only one 
-
-    noteDialog.addEventListener('click',function(event){
-        if(event.target === this){
-            closeNoteDialog()
-        }
-    })
-
-    noteDialog2.addEventListener('click',function(event){
-        if(event.target === this){
-            closeNoteDialog2()
-        }
-    })
-
-})
+    [noteDialog, noteDialog2].forEach(dialog => {
+        dialog.addEventListener('click', function (event) {
+            if (event.target === dialog) {
+                dialog.close();
+            }
+        });
+    });
+});

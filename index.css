@@ -1,6 +1,15 @@
+:root {
+  --bg-page: #ede0ce;
+  --accent: #b85028;
+  --accent-hover: #9a3f1c;
+  --surface-subtle: #e3d2bc;
+  --text-primary: #2c1e16;
+  --surface-elevated: #f7efe4;
+}
+
 body {
-  background-color: #ede0ce;
-  color: #2c1e16;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
   margin: 0;
   padding: 0;
 
@@ -17,14 +26,14 @@ header {
   background: rgba(227, 210, 188, 0.72);
   backdrop-filter: blur(5px) saturate(180%);
   -webkit-backdrop-filter: blur(5px) saturate(180%);
-  border: 1px solid #e3d2bc;
+  border: 1px solid var(--surface-subtle);
   border-radius: 0 0 1em 1em;
   box-shadow: 0 8px 32px rgba(44, 30, 22, 0.12);
 }
 
 button {
-  background-color: #b85028;
-  color: #f7efe4;
+  background-color: var(--accent);
+  color: var(--surface-elevated);
   border: none;
   border-radius: 12px;
   padding: 0.65rem 1.25rem;
@@ -34,7 +43,14 @@ button {
 }
 
 button:hover {
-  background-color: #9a3f1c;
+  background-color: var(--accent-hover);
+}
+
+.empty-state {
+  font-family:inherit;
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 1rem;
 }
 
 #notesContainer {
@@ -44,27 +60,19 @@ button:hover {
   padding: 2rem;
 }
 
-.notes-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
 .note-card {
   display: flex;
   flex-direction: column;
   min-height: 200px;
   padding: 1.5rem;
-  background-color: #f7efe4;
-  border: 1px solid #e3d2bc;
+  background-color: var(--surface-elevated);
+  border: 1px solid var(--surface-subtle);
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(44, 30, 22, 0.07);
-  transition: transform 0.5s ease-in-out;
 
   transition: 
-    transform 0.6s ease-out, 
-    opacity 0.4s ease-out;
-
+    transform 0.6s ease-in-out, 
+    opacity 0.4s ease-in-out;
 }
 
 .note-card.delete{
@@ -81,8 +89,8 @@ button:hover {
 }
 
 .note-title {
-  font-size: 2rem;
-  color: #2c1e16;
+  font-size: 1.5rem;
+  color: var(--text-primary);
 }
 
 .note-content {
@@ -90,7 +98,7 @@ button:hover {
   font-size: 1rem;
   line-height: 24px;
   max-height: 6rem;
-  color: #2c1e16;
+  color: var(--text-primary);
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 4;
@@ -108,6 +116,12 @@ button:hover {
   gap: 0.5rem;
 }
 
+@media (hover: none) {
+  .note-card-actions {
+    opacity: 1;
+  }
+}
+
 .edit-btn,.delete-btn,.expand-btn {
   display: inline-flex;
   align-items: center;
@@ -117,46 +131,46 @@ button:hover {
   padding: 0;
   border: none;
   border-radius: 12px;
-  background-color: #e3d2bc;
-  color: #2c1e16;
+  background-color: var(--surface-subtle);
+  color: var(--text-primary);
   font-size: 1rem;
   font-weight: 600;
 }
 
 .edit-btn:hover {
-  background-color: #ede0ce;
+  background-color: var(--bg-page);
 }
 
 .expand-btn:hover {
-  background-color: #ede0ce;
+  background-color: var(--bg-page);
 }
 
 .delete-btn:hover {
-  background-color: #b85028;
-  color: #f7efe4;
+  background-color: var(--accent);
+  color: var(--surface-elevated);
 }
 
 dialog {
   box-sizing: border-box;
   margin: auto;
   inset: 0;
-  border: 1px solid #e3d2bc;
+  border: 1px solid var(--surface-subtle);
   border-radius: 20px;
   padding: 0;
-  background: #f7efe4;
-  color: #2c1e16;
+  background: var(--surface-elevated);
+  color: var(--text-primary);
   max-width: 480px;
   width: 92vw;
   box-shadow: 0 24px 48px -12px rgba(44, 30, 22, 0.25);
 
   opacity: 0;
   transition: 
-    0.6s opacity,
-    0.6s display allow-discrete,
-    0.6s overlay allow-discrete;
+    0.25s opacity,
+    0.25s display allow-discrete,
+    0.25s overlay allow-discrete;
 
   &::backdrop {
-    transition: opacity 1s;
+    transition: opacity 0.2s;
   }
 
   &:not(:open) {
@@ -181,7 +195,6 @@ dialog {
       }
     }
   }
-
 }
 
 dialog * {
@@ -210,7 +223,7 @@ dialog::backdrop {
   font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: -0.02em;
-  color: #2c1e16;
+  color: var(--text-primary);
 }
 
 .close-btn {
@@ -221,7 +234,7 @@ dialog::backdrop {
   height: 34px;
   padding: 0;
   background: transparent;
-  color: #2c1e16;
+  color: var(--text-primary);
   font-size: 1.25rem;
   border: none;
   border-radius: 12px;
@@ -229,7 +242,7 @@ dialog::backdrop {
 }
 
 .close-btn:hover {
-  background: #e3d2bc;
+  background: var(--surface-subtle);
 }
 
 .noteForm, .noteTitle, .noteContent {
@@ -245,23 +258,25 @@ dialog::backdrop {
   margin-bottom: 0.4rem;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #2c1e16;
+  color: var(--text-primary);
 }
 
 .form-Title,.form-TextArea {
+  font-family: inherit;
+
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1.5px solid #e3d2bc;
+  border: 1.5px solid var(--surface-subtle);
   border-radius: 12px;
   font-size: 0.95rem;
-  background: #ede0ce;
-  color: #2c1e16;
+  background: var(--bg-page);
+  color: var(--text-primary);
 }
 
 .form-Title:focus,.form-TextArea:focus {
   outline: none;
-  background: #f7efe4;
-  border-color: #b85028;
+  background: var(--surface-elevated);
+  border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(184, 80, 40, 0.16);
 }
 
@@ -286,19 +301,19 @@ dialog::backdrop {
 }
 
 .cancel-btn {
-  background: #e3d2bc;
-  color: #2c1e16;
+  background: var(--surface-subtle);
+  color: var(--text-primary);
 }
 
 .cancel-btn:hover {
-  background: #ede0ce;
+  background: var(--bg-page);
 }
 
 .save-btn {
-  background: #b85028;
-  color: #f7efe4;
+  background: var(--accent);
+  color: var(--surface-elevated);
 }
 
 .save-btn:hover {
-  background: #9a3f1c;
+  background: var(--accent-hover);
 }

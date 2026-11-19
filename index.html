@@ -4,12 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quick Notes</title>
-    <link rel ="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index.css">
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
     <script src="index.js" defer></script>
 </head>
@@ -18,28 +17,28 @@
     <header>
         <h1>Quick Notes</h1>
         <div>
-            <button class="add-note-btn" onclick="openNoteDialog()">➕</button>
+            <button type="button" class="add-note-btn" onclick="openNoteDialog()">➕</button>
             <!--<button id="themeToggleBtn" class="theme-toggle-btn">🌙</button>-->
         </div>
     </header>
 
-    <main id="notesContainer" class="notes-grid"></main>
+    <main id="notesContainer"></main>
 
     <dialog id="noteDialog" class="dialognotes">
         <div class="mainDialog">
             <div class="dialog-content">
                 <div class="dialog-header">
                     <h2 class="dialog-title" id="dialogTitle"></h2>
-                    <button class="close-btn" onclick="closeNoteDialog()">x</button>
+                    <button type="button" class="close-btn" onclick="closeNoteDialog()">×</button>
                 </div>
                 <form id="noteForm">
                     <div id="noteTitle">
-                        <label class="form-label">Title</label>
-                        <input type="text"placeholder="Enter note title..." id="noteTitleField" class="form-Title" required>
+                        <label for="noteTitleField" class="form-label">Title</label>
+                        <input type="text" placeholder="Enter note title..." id="noteTitleField" class="form-Title" required>
                     </div>
                     <div id="note-content">
-                        <label class="form-label">content</label>
-                        <textarea placeholder="Enter content title..." id="noteContent" class="form-TextArea" maxlength="1500"></textarea>
+                        <label for="noteContent" class="form-label">Content</label>
+                        <textarea placeholder="Enter note content..." id="noteContent" class="form-TextArea" maxlength="1500"></textarea>
                     </div>
                     <div class="dialog-actions">
                         <button type="button" class="cancel-btn" onclick="closeNoteDialog()">Cancel</button>
@@ -55,12 +54,13 @@
             <div class="dialog-content">
                 <div class="dialog-header">
                     <h2 class="note-title" id="ex-Title"></h2>
-                    <button class="close-btn" onclick="closeNoteDialog2()">x</button>
+                    <button type="button" class="close-btn" onclick="closeNoteDialog2()">×</button>
                 </div>
-                <div id="noteForm">
-                        <p id="ex-Content"></p>
+                <div class="dialog-body">
+                    <p id="ex-Content"></p>
+                    <div class="dialog-actions">
                         <button type="button" class="cancel-btn" onclick="closeNoteDialog2()">Close</button>
-                        
+                    </div>
                 </div>
             </div>
         </div>
