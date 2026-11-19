@@ -3,6 +3,8 @@ body {
   color: #2c1e16;
   margin: 0;
   padding: 0;
+
+  font-family:"Lato", sans-serif;
 }
 
 header {
@@ -57,6 +59,25 @@ button:hover {
   border: 1px solid #e3d2bc;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(44, 30, 22, 0.07);
+  transition: transform 0.5s ease-in-out;
+
+  transition: 
+    transform 0.6s ease-out, 
+    opacity 0.4s ease-out;
+
+}
+
+.note-card.delete{
+  opacity: 0;
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.note-card:hover {
+  transform:scale(1.1);
+  .note-card-actions{
+    opacity: 1;
+  }
 }
 
 .note-title {
@@ -78,10 +99,13 @@ button:hover {
 
 .note-card-actions {
   margin-top: auto;
-  display: flex;
+  padding: 10px;
+  display:flex;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  align-items:flex-start;
   justify-content: flex-end;
   gap: 0.5rem;
-  margin-top: 0.5rem;
 }
 
 .edit-btn,.delete-btn,.expand-btn {
@@ -124,6 +148,40 @@ dialog {
   max-width: 480px;
   width: 92vw;
   box-shadow: 0 24px 48px -12px rgba(44, 30, 22, 0.25);
+
+  opacity: 0;
+  transition: 
+    0.6s opacity,
+    0.6s display allow-discrete,
+    0.6s overlay allow-discrete;
+
+  &::backdrop {
+    transition: opacity 1s;
+  }
+
+  &:not(:open) {
+    opacity: 0;
+    &::backdrop {
+      opacity: 0;
+    }
+  }
+
+  &:open {
+    opacity: 1;
+    &::backdrop {
+      opacity: 1;
+    }
+  }
+  
+  @starting-style {
+    &:open {
+      opacity: 0;
+      &::backdrop {
+        opacity: 0;
+      }
+    }
+  }
+
 }
 
 dialog * {
@@ -190,8 +248,7 @@ dialog::backdrop {
   color: #2c1e16;
 }
 
-.form-Title,
-.form-TextArea {
+.form-Title,.form-TextArea {
   width: 100%;
   padding: 0.75rem 1rem;
   border: 1.5px solid #e3d2bc;
@@ -220,8 +277,7 @@ dialog::backdrop {
   margin-top: 1.5rem;
 }
 
-.cancel-btn,
-.save-btn {
+.cancel-btn,.save-btn {
   padding: 0.65rem 1.25rem;
   border: none;
   border-radius: 12px;

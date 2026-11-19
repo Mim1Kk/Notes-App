@@ -6,6 +6,8 @@ const noteForm = document.getElementById('noteForm');
 const noteContainer = document.getElementById('notesContainer');
 
 
+
+
 let notes = []
 let editingNoteID = null
 
@@ -50,10 +52,16 @@ function saveNotes() {
     return localStorage.setItem('quickNotes', JSON.stringify(notes))
 }
 
-function deleteNote(noteId) {
-    notes = notes.filter(note => note.id != noteId)
-    saveNotes()
-    renderNotes()
+function deleteNote(noteId, event) {
+  const noteCard = event.target.closest('.note-card');
+  
+  noteCard.classList.add('delete');
+
+  setTimeout(() => {
+    notes = notes.filter(note => note.id != noteId);
+    saveNotes();
+    renderNotes();
+  }, 600); 
 }
 
 
@@ -81,13 +89,13 @@ function renderNotes() {
     }
 
     notesContainer.innerHTML = notes.map(note => `
-        <div class = "note-card"> 
+        <div class = "note-card" id="noteCard"> 
             <h3 class="note-title">${note.title}</h3>
             <p class="note-content">${note.content}</p>
             <div class="note-card-actions">            
                 <button class="expand-btn" onclick="openExpandedDialog('${note.id}')" title="Expand Note">🔍</button>
                 <button class="edit-btn" onclick="openNoteDialog('${note.id}')" title="Edit Note">✏️</button>
-                <button class="delete-btn" onclick="deleteNote('${note.id}')" title="Delete Note">🗑️</button>
+                <button class="delete-btn" onclick="deleteNote('${note.id}', event)" title="Delete Note">🗑️</button>
             </div>
         </div>
     `).join('')
@@ -144,9 +152,17 @@ document.addEventListener('DOMContentLoaded', function(){
     
     noteForm.addEventListener('submit',saveNote)    
 
+    //optimize by using only one 
+
     noteDialog.addEventListener('click',function(event){
         if(event.target === this){
             closeNoteDialog()
+        }
+    })
+
+    noteDialog2.addEventListener('click',function(event){
+        if(event.target === this){
+            closeNoteDialog2()
         }
     })
 
