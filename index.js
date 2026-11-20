@@ -32,11 +32,14 @@ function saveNote(event){
         }
     } 
     else{
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+
         notes.unshift({
             id: generateID(),
             title: title,
-            content: content
-            
+            content: content,
+            date: today.toLocaleDateString('en-US', options),
         });
     }
 
@@ -93,7 +96,8 @@ function renderNotes() {
         <div class = "note-card" id="noteCard"> 
             <h3 class="note-title">${note.title}</h3>
             <p class="note-content">${note.content}</p>
-            <div class="note-card-actions">            
+            <div class="note-card-actions">
+                <h4 class = "note-date" id = "noteDate"> Created : ${note.date}</h4>            
                 <button class="expand-btn" onclick="openExpandedDialog('${note.id}')" title="Expand Note">🔍</button>
                 <button class="edit-btn" onclick="openNoteDialog('${note.id}')" title="Edit Note">✏️</button>
                 <button class="delete-btn" onclick="deleteNote('${note.id}', event)" title="Delete Note">🗑️</button>
@@ -112,6 +116,7 @@ function openExpandedDialog(noteId){
     
     document.getElementById('ex-Content').textContent = noteToShow.content
 
+    document.getElementById('ex-Date').textContent = noteToShow.date
 
     noteDialog2.showModal();
 }
@@ -151,7 +156,7 @@ document.addEventListener('DOMContentLoaded', function(){
     notes = loadNotes()
     renderNotes()
     
-    noteForm.addEventListener('submit',saveNote)    
+    noteForm.addEventListener('submit',saveNote);   
 
     [noteDialog, noteDialog2].forEach(dialog => {
         dialog.addEventListener('click', function (event) {
